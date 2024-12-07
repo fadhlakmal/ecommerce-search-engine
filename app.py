@@ -44,6 +44,10 @@ app = Flask(__name__)
 #     except Exception as e:
 #         return jsonify({"error": str(e)}), 500
 
+@app.route('/')
+def home():
+    return "Hi Mom"
+
 @app.route('/search', methods=['POST'])
 def search():
     try:
