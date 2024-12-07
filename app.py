@@ -1,7 +1,7 @@
 from flask import Flask, request, jsonify
 import pandas as pd
-# from sklearn.feature_extraction.text import TfidfVectorizer
-# from sklearn.metrics.pairwise import cosine_similarity
+from sklearn.feature_extraction.text import TfidfVectorizer
+from sklearn.metrics.pairwise import cosine_similarity
 from rank_bm25 import BM25Okapi
 import re
 
@@ -71,6 +71,8 @@ def search():
         
         scores = bm25.get_scores(tokenized_query)
         df['similarity'] = scores
+
+        df['similarity'] = (df['similarity'] - df['similarity'].min()) / (df['similarity'].max() - df['similarity'].min())
         
         filtered = df[df['similarity'] >= threshold].drop(columns=['text'], axis=1)
         filtered = filtered.sort_values('similarity', ascending=False)
