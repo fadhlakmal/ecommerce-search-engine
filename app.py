@@ -4,8 +4,10 @@ import pandas as pd
 #from sklearn.metrics.pairwise import cosine_similarity
 from rank_bm25 import BM25Okapi
 import re
+from flask_cors import CORS
 
 app = Flask(__name__)
+CORS(app)
 
 # @app.route('/search', methods=['POST'])
 # def search():
@@ -43,10 +45,6 @@ app = Flask(__name__)
     
 #     except Exception as e:
 #         return jsonify({"error": str(e)}), 500
-
-@app.route('/')
-def home():
-    return "Hi Mom"
 
 @app.route('/search', methods=['POST'])
 def search():
